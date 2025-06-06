@@ -1,4 +1,4 @@
-export  function pad(value, width) {
+function pad(value, width) {
   value = value + "";
   return value.length >= width ? value : new Array(width - value.length + 1).join('0') + value;
 }
