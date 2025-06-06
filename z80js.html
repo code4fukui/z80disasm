@@ -190,7 +190,7 @@ E2BA20DF110002189200000000000000
 <hr style="border:solid #aaaaff 1px;height:1px;margin-top"/>
 
 <p>Call Graph</p>
-<button id="btn_drawCallGraph" x-onclick="javascript:drawCallGraph()">Draw Call Graph</button>
+<button id="btn_drawCallGraph" x-onclick="javascript:drawCallGraph()" disabled>Draw Call Graph</button>
 <div style="background-color:#ddd">
 <p style="margin-left:2.5%;margin-right:2.5%;width:90%">SVG Call Graph of Excecution</p>
 <canvas id="CallGraph" width="200" height="100"></canvas>
@@ -199,7 +199,7 @@ E2BA20DF110002189200000000000000
 <hr style="border:solid #aaaaff 1px;height:1px;margin-top"/>
 
 <p>Address Based Flow Graph</p>
-<button id="btn_drawFlowGraph" x-onclick="javascript:drawFlowGraph()">Draw Flow Graph</button>
+<button id="btn_drawFlowGraph" x-onclick="javascript:drawFlowGraph()" disabled>Draw Flow Graph</button>
 <div style="background-color:#ddd">
 <p style="margin-left:2.5%;margin-right:2.5%;width:90%">SVG Flow Graph of Excecution</p>
 <canvas id="FlowGraph" width="200" height="100"></canvas>
@@ -424,6 +424,7 @@ function highlightUpdateValue(field, value){
 	}
 }
 
+// todo
 function drawCallGraph(){
 var canvas = document.getElementById("CallGraph");
 var canvasContext = canvas.getContext("2d");
