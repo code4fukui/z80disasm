@@ -30,14 +30,14 @@ export var Z80CPU = {
 		if (!instruction) {
 			this.registers.PC++;
 			//throw new Error("opcode not found. disassembling failed.");
-			return asWordHex(this.registers.PC) + ":\t" + asByteHex(instruction.opcode) + "\t\t'opcode not found";
+			return "'opcode not found";
 		}
 		const cut = (s) => {
 			if (s.startsWith("mf ")) return s.substring(3);
 			if (s.startsWith("nip ")) return s.substring(4);
 			return s;
 		};
-		const listing = asWordHex(this.registers.PC) + ":\t" + asByteHex(instruction.opcode) + "\t\t" + cut(instruction.disassemble(this).toLowerCase());
+		const listing = cut(instruction.disassemble(this).toLowerCase());
 		this.registers.PC += instruction.length;
 		return listing;
 	},
