@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8"/>
-<title>A Javascript based Z80 Disassembler and Simulator
+<title>A JavaScript based Z80 Disassembler and Simulator
 </title>
 <style>
 .box {
@@ -15,7 +15,6 @@
   display: table;
 }
 </style>
-<script src="z80cpu.js"></script>
 </head>
 <body>
 
@@ -54,16 +53,16 @@ E2BA20DF110002189200000000000000
 7906CF5BE66D7D6D0000000000000000 
 393F5EF93F7F066D
 </textarea><br/>
-<button style="margin-left:5%;margin-right:0%;" onclick="javascript:disassemble()">Disassemble</button>
-<button style="margin-left:0%;margin-right:0%;" onclick="">Convert to I08Hex</button>
-<button style="margin-left:0%;margin-right:0%;" onclick="">Convert to S-Record</button>
+<button style="margin-left:5%;margin-right:0%;" id="btn_disassemble" x-onclick="javascript:disassemble()">Disassemble</button>
+<button style="margin-left:0%;margin-right:0%;" onclick="" disabled>Convert to I08Hex</button>
+<button style="margin-left:0%;margin-right:0%;" onclick="" disabled>Convert to S-Record</button>
 </div>
 <div class="box" style="background-color:#ddd">
 <p style="margin-left:5%;margin-right:5%;width:90%">Binary Code (I08HEX or S-Record Format)</p>
 <textarea  name="iHex" id="iHex" rows="4" style="margin-left:5%;margin-right:5%;width:90%">
 </textarea><br/>
-<button style="margin-left:5%;margin-right:0%;">Convert I08Hex to Binary</button>
-<button style="margin-left:0%;margin-right:0%;">Convert S-Record to Binary</button>
+<button style="margin-left:5%;margin-right:0%;" disabled>Convert I08Hex to Binary</button>
+<button style="margin-left:0%;margin-right:0%;" disabled>Convert S-Record to Binary</button>
 </div>
 
 </div>
@@ -150,23 +149,23 @@ E2BA20DF110002189200000000000000
 <p>Z80 Disassembler and Simulator</p>
 
 <div class="clearfix">
-<button onclick="javascript:reset()">Reset</button>
-<button onclick="javascript:run()">Run</button>
-<button onclick="javascript:halt()">Halt</button><br/>
-<button onclick="javascript:halt()">Step into</button>
-<button onclick="javascript:halt()">Step over</button>
-<button onclick="javascript:halt()">Step out</button>
-<button onclick="javascript:step()">Step 1</button>
-<button onclick="javascript:stepN()">Step N</button>
+<button id="btn_reset" x-onclick="javascript:reset()">Reset</button>
+<button id="btn_run" x-onclick="javascript:run()">Run</button>
+<button id="btn_halt" x-onclick="javascript:halt()">Halt</button><br/>
+<button id="btn_stepinto" x-onclick="javascript:halt()" disabled>Step into</button>
+<button id="btn_stepover" x-onclick="javascript:halt()" disabled>Step over</button>
+<button id="btn_stepout" x-onclick="javascript:halt()" disabled>Step out</button>
+<button id="btn_step" x-onclick="javascript:step()">Step 1</button>
+<button id="btn_stepn" x-onclick="javascript:stepN()">Step N</button>
 <label for="N">N <input type=text name="N" id="N" value="2" style="width:4em;background-color:#f4d7d7"/> </label>
-<label for="autoStep">Auto Step<input type="checkbox" name="autoStep" id="autoStep" onclick="javascript:autoStep()"/></label>
+<label for="autoStep">Auto Step<input type="checkbox" name="autoStep" id="autoStep" x-onclick="javascript:autoStep()"/></label>
 <label for="Hz"><input type=text name="Hz" id="Hz" value="1" style="width:2em;background-color:#f4d7d7"/>Hz</label><br/>
-<button onclick="javascript:runToAddr()">Run to addr</button>
+<button id="btn_runToAddr" x-onclick="javascript:runToAddr()" disabled>Run to addr</button>
 <label for="Bkpt1">Addr <input type=text name="Addr" id="Addr" value="0x0030" style="width:4em;background-color:#f4d7d7"/>  </label>
 <label for="Bkpt1">Bkpt1 <input type=text name="Bkpt1" id="Bkpt1" value="0x0000" style="width:4em;background-color:#f4d7d7"/><input type="checkbox" name="Bkpt1Enabled" id="Bkpt1Enabled" disabled="disabled" />  </label>
 <label for="Bkpt2">Bkpt2 <input type=text name="Bkpt2" id="Bkpt2" value="0x0000" style="width:4em;background-color:#f4d7d7"/><input type="checkbox" name="Bkpt2Enabled" id="Bkpt2Enabled" disabled="disabled" />  </label><br/>
-<button onclick="javascript:interrupt()">INT</button>
-<button onclick="javascript:nminterrupt()">NMI</button>
+<button id="btn_int" x-onclick="javascript:interrupt()">INT</button>
+<button id="btn_nmi" x-onclick="javascript:nminterrupt()">NMI</button>
 </div>
 
 <hr style="border:solid #aaaaff 1px;height:1px;margin-top"/>
@@ -191,7 +190,7 @@ E2BA20DF110002189200000000000000
 <hr style="border:solid #aaaaff 1px;height:1px;margin-top"/>
 
 <p>Call Graph</p>
-<button onclick="javascript:drawCallGraph()">Draw Call Graph</button>
+<button id="btn_drawCallGraph" x-onclick="javascript:drawCallGraph()">Draw Call Graph</button>
 <div style="background-color:#ddd">
 <p style="margin-left:2.5%;margin-right:2.5%;width:90%">SVG Call Graph of Excecution</p>
 <canvas id="CallGraph" width="200" height="100"></canvas>
@@ -200,7 +199,7 @@ E2BA20DF110002189200000000000000
 <hr style="border:solid #aaaaff 1px;height:1px;margin-top"/>
 
 <p>Address Based Flow Graph</p>
-<button onclick="javascript:drawFlowGraph()">Draw Flow Graph</button>
+<button id="btn_drawFlowGraph" x-onclick="javascript:drawFlowGraph()">Draw Flow Graph</button>
 <div style="background-color:#ddd">
 <p style="margin-left:2.5%;margin-right:2.5%;width:90%">SVG Flow Graph of Excecution</p>
 <canvas id="FlowGraph" width="200" height="100"></canvas>
@@ -214,7 +213,9 @@ Z80 Family Interrupt Structure by Michael Moor <a href="http://z80.info/1653.htm
 Kurze Übersicht über die Befehle des Z80 by Matthias Buchhorn <a href="https://www.mikrocontroller.net/attachment/235150/Instruction_Card_Z80.pdf">https://www.mikrocontroller.net/attachment/235150/Instruction_Card_Z80.pdf</a><br/>
 Z80 Instruction Set <a href="http://wikiti.brandonw.net/index.php?title=Z80_Instruction_Set">http://wikiti.brandonw.net/index.php?title=Z80_Instruction_Set</a>
 
-<script language="javascript">
+<script type="module">
+import { Z80CPU } from "./z80cpu.js";
+import { asByteHex, asWordHex } from "./util.js";
 
 var logger={
 	log:function(text){console.log(text);},
@@ -230,39 +231,9 @@ var autoStepTimer;
 var stepCount=0;
 
 var cpu=Object.create(Z80CPU);
+cpu.logger = logger;
 
 logger.log("z80js - Z80 Disassembler and Simulator ready");
-
-function pad(value, width) {
-  value = value + "";
-  return value.length >= width ? value : new Array(width - value.length + 1).join('0') + value;
-}
-
-function asQwordHex(value){
-return "0x"+pad(value.toString(16),16);
-}
-
-function asDwordHex(value){
-return "0x"+pad(value.toString(16),8);
-}
-
-function asWordHex(value){
-return "0x"+pad(value.toString(16),4);
-}
-
-function asByteHex(value){
-	if(Array.isArray(value)){
-		var tmp="";
-		for(var i=0;i<value.length;i++){
-			tmp+=asByteHex(value[i])+" ";
-		}
-		return tmp;
-	}
-	if(value==null){
-		return "____";
-	}
-return "0x"+pad(value.toString(16),2);
-}
 
 function run(){
 	document.getElementById("autoStep").checked=false;
@@ -307,6 +278,7 @@ function autoStep(){
 		clearTimeout(autoStepTimer);
 	}
 }
+document.getElementById("autoStep").onclick = () => autoStep();
 
 function runToAddr(){
 	var addr = parseInt(document.getElementById("Addr").value, 16);
@@ -405,6 +377,7 @@ function disassemble(){
 	document.getElementById("disassembly").value=cpu.disassemble();
 	cpu.reset();
 }
+btn_disassemble.onclick = () => disassemble();
 
 function updateGUI(){
 		//document.getElementById("excection").value=excection;
@@ -458,6 +431,7 @@ canvasContext.moveTo(0, 0);
 canvasContext.lineTo(200, 100);
 canvasContext.stroke(); 
 }
+btn_drawCallGraph.onclick = () => drawCallGraph();
 
 function drawFlowGraph(){
 var canvas = document.getElementById("FlowGraph");
@@ -466,6 +440,20 @@ canvasContext.moveTo(0, 100);
 canvasContext.lineTo(200, 0);
 canvasContext.stroke(); 
 }
+btn_drawFlowGraph.onclick = () => drawFlowGraph();
+
+btn_reset.onclick = () => reset();
+btn_run.onclick = () => run();
+btn_halt.onclick = () => halt();
+btn_stepinto.onclick = () => halt(); // ?
+btn_stepover.onclick = () => halt(); // ?
+btn_stepout.onclick = () => halt(); // ?
+btn_step.onclick = () => step();
+btn_stepn.onclick = () => stepN();
+btn_runToAddr.onclick = () => runToAddr();
+btn_int.onclick = () => interrupt();
+btn_nmi.onclick = () => nminterrupt();
+
 
 /*
 for(var i=0;i<256;i++){
