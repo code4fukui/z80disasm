@@ -16,6 +16,10 @@ export var Z80CPU = {
 		if (!this.logger) return;
 		this.logger.warn(s);
 	},
+	error: function (s) {
+		if (!this.logger) return;
+		this.logger.error(s);
+	},
 	disassemble1: function(){
 		//logger.log(this.memory.length);
 		if (!this.memory) {
